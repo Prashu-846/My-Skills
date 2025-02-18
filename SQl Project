@@ -1,0 +1,34 @@
+CREATE DATABASE HospitalDB;
+USE HospitalDB;
+
+-- Create Patients Table
+CREATE TABLE Patients (
+    patient_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    age INT CHECK (age > 0),
+    disease VARCHAR(255)
+);
+
+-- Create Appointments Table
+CREATE TABLE Appointments (
+    appointment_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT,
+    doctor_name VARCHAR(100) NOT NULL,
+    appointment_date DATE NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
+);
+
+-- Insert Patients
+INSERT INTO Patients (name, age, disease) VALUES 
+('Ram Gopal Varma', 45, 'Diabetes'),
+('Gautham Krishna', 30, 'Flu');
+
+-- Insert Appointments
+INSERT INTO Appointments (patient_id, doctor_name, appointment_date) VALUES 
+(1, 'Prashu', '2025-02-20'),
+(2, 'Jashwanth', '2025-02-19');
+
+-- Retrieve Appointment Details
+SELECT Patients.name, Appointments.doctor_name, Appointments.appointment_date 
+FROM Patients 
+JOIN Appointments ON Patients.patient_id = Appointments.patient_id;
